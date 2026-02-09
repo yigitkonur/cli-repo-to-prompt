@@ -1,5 +1,5 @@
 {
-  "name": "repo-to-prompt",
+  "name": "cli-repotoprompt",
   "version": "1.1.0",
   "description": "Gather project context for LLMs - intelligently scan repositories and format for AI consumption",
   "type": "module",
@@ -20,7 +20,10 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "version:patch": "npm version patch",
+    "version:minor": "npm version minor",
+    "version:major": "npm version major"
   },
   "engines": {
     "node": ">=18"
@@ -41,12 +44,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yigitkonur/repo-to-prompt.git"
+    "url": "git+https://github.com/yigitkonur/cli-repotoprompt.git"
   },
   "bugs": {
-    "url": "https://github.com/yigitkonur/repo-to-prompt/issues"
+    "url": "https://github.com/yigitkonur/cli-repotoprompt/issues"
   },
-  "homepage": "https://github.com/yigitkonur/repo-to-prompt#readme",
+  "homepage": "https://github.com/yigitkonur/cli-repotoprompt#readme",
   "dependencies": {
     "@inquirer/prompts": "^8.1.0",
     "chalk": "^5.6.2",
