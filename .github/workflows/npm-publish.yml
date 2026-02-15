@@ -1,0 +1,71 @@
+name: Publish to npm
+
+on:
+  push:
+    branches: [main]
+    paths-ignore: ['*.md', 'docs/**', 'LICENSE', '.gitignore']
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: 'Version bump type'
+        required: false
+        type: choice
+        default: patch
+        options: [patch, minor, major]
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - name: Check if version exists on npm
+        id: check
+        run: |
+          PKG_NAME=$(node -p "require('./package.json').name")
+          PKG_VER=$(node -p "require('./package.json').version")
+          echo "name=$PKG_NAME version=$PKG_VER"
+          set +e
+          npm view "${PKG_NAME}@${PKG_VER}" version 2>/dev/null
+          if [ $? -eq 0 ]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Bump version
+        id: bump
+        if: steps.check.outputs.exists == 'true' && github.actor != 'github-actions[bot]'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          BUMP="${{ inputs.bump || 'patch' }}"
+          npm version "$BUMP" -m "chore: bump to v%s [skip ci]"
+          git push && git push --tags
+          echo "bumped=true" >> "$GITHUB_OUTPUT"
+
+      - name: Rebuild after bump
+        if: steps.bump.outputs.bumped == 'true'
+        run: npm run build
+
+      - name: Publish to npm
+        if: steps.check.outputs.exists == 'false' || steps.bump.outputs.bumped == 'true'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --access public
