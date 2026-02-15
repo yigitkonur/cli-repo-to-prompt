@@ -25,7 +25,7 @@ When working with AI coding assistants, you often need to share your project's c
 npx cli-repotoprompt
 
 # Or install globally
-npm install -g cli-repotoprompt
+pnpm add -g cli-repotoprompt
 ```
 
 After global install, use any of these aliases:
