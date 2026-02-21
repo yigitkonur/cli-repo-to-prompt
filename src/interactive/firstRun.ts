@@ -9,7 +9,7 @@ interface FirstRunConfig {
 }
 
 function getConfigPath(): string {
-  const dir = join(homedir(), '.config', 'repo-to-prompt');
+  const dir = join(homedir(), '.config', 'cli-repo-to-prompt');
   return join(dir, 'config.json');
 }
 
@@ -32,7 +32,7 @@ function readConfig(): FirstRunConfig | null {
 
 function writeConfig(cfg: FirstRunConfig): void {
   const path = getConfigPath();
-  const dir = join(homedir(), '.config', 'repo-to-prompt');
+  const dir = join(homedir(), '.config', 'cli-repo-to-prompt');
   mkdirSync(dir, { recursive: true });
   writeFileSync(path, JSON.stringify(cfg, null, 2), 'utf-8');
 }
@@ -52,9 +52,9 @@ function detectShellRc(): { shellName: string; rcPath: string } | null {
 
 function aliasLine(shellName: string, aliasName: string): string {
   if (shellName === 'fish') {
-    return `alias ${aliasName}='repo-to-prompt'`;
+    return `alias ${aliasName}='cli-repo-to-prompt'`;
   }
-  return `alias ${aliasName}="repo-to-prompt"`;
+  return `alias ${aliasName}="cli-repo-to-prompt"`;
 }
 
 function fileContains(path: string, needle: string): boolean {
@@ -68,7 +68,7 @@ function fileContains(path: string, needle: string): boolean {
 }
 
 export async function ensureFirstRunSetup(commandName: string): Promise<void> {
-  if (process.env.REPO_TO_PROMPT_SKIP_SETUP === '1') return;
+  if (process.env.CLI_REPO_TO_PROMPT_SKIP_SETUP === '1') return;
   if (!process.stdin.isTTY) return;
 
   const existing = readConfig();
@@ -86,10 +86,10 @@ export async function ensureFirstRunSetup(commandName: string): Promise<void> {
       { name: copyAllowed ? 'copy' : 'copy (not supported on this OS)', value: 'copy' },
       { name: 'repo2prompt', value: 'repo2prompt' },
       { name: 'repo2cp', value: 'repo2cp' },
-      { name: 'repo-to-prompt', value: 'repo-to-prompt' },
+      { name: 'cli-repo-to-prompt', value: 'cli-repo-to-prompt' },
       { name: 'others (custom)', value: 'custom' },
     ],
-    default: commandName === 'repo-to-prompt' ? 'repo-to-prompt' : commandName,
+    default: commandName === 'cli-repo-to-prompt' ? 'cli-repo-to-prompt' : commandName,
   });
 
   let aliasName = chosen;
@@ -124,7 +124,7 @@ export async function ensureFirstRunSetup(commandName: string): Promise<void> {
 
   if (platform === 'win32') {
     console.log('\nWindows detected. Add an alias manually (PowerShell):');
-    console.log(`  Set-Alias ${aliasName} repo-to-prompt`);
+    console.log(`  Set-Alias ${aliasName} cli-repo-to-prompt`);
     console.log('Or install globally and use the provided bin aliases.\n');
     writeConfig({ completed: true, preferredAlias: aliasName });
     return;
@@ -164,7 +164,7 @@ export async function ensureFirstRunSetup(commandName: string): Promise<void> {
     if (shellRc.shellName === 'fish') {
       mkdirSync(join(homedir(), '.config', 'fish'), { recursive: true });
     }
-    appendFileSync(shellRc.rcPath, `\n# repo-to-prompt\n${line}\n`, 'utf-8');
+    appendFileSync(shellRc.rcPath, `\n# cli-repo-to-prompt\n${line}\n`, 'utf-8');
     console.log(`\n✅ Added alias. Restart your terminal or run: source ${shellRc.rcPath}\n`);
   } catch {
     console.log('\nFailed to write shell config. Add this manually:');

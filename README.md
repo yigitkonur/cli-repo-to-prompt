@@ -7,7 +7,7 @@
 
 ## Why?
 
-When working with AI coding assistants, you often need to share your project's context. Manually copying files is tedious and error-prone. **repo-to-prompt** intelligently scans your codebase, respects `.gitignore`, filters out noise, and formats everything into clean Markdown ready for LLMs.
+When working with AI coding assistants, you often need to share your project's context. Manually copying files is tedious and error-prone. **cli-repo-to-prompt** intelligently scans your codebase, respects `.gitignore`, filters out noise, and formats everything into clean Markdown ready for LLMs.
 
 ## Features
 
@@ -30,6 +30,7 @@ pnpm add -g cli-repo-to-prompt
 
 After global install, use any of these aliases:
 ```bash
+cli-repo-to-prompt .
 repo-to-prompt .
 context .
 llmcontext .
@@ -61,61 +62,61 @@ npx cli-repo-to-prompt --preview
 
 ```bash
 # Current directory to clipboard
-repo-to-prompt
+cli-repo-to-prompt
 
 # Specific directory
-repo-to-prompt ./backend
+cli-repo-to-prompt ./backend
 
 # Output to file
-repo-to-prompt -o output.md
+cli-repo-to-prompt -o output.md
 
 # Print to stdout
-repo-to-prompt --stdout
+cli-repo-to-prompt --stdout
 ```
 
 ### GitHub Repositories
 
 ```bash
 # Clone and scan
-repo-to-prompt facebook/react
+cli-repo-to-prompt facebook/react
 
 # Specific branch
-repo-to-prompt vercel/next.js@canary
+cli-repo-to-prompt vercel/next.js@canary
 
 # Full URL
-repo-to-prompt https://github.com/microsoft/typescript
+cli-repo-to-prompt https://github.com/microsoft/typescript
 ```
 
 ### Filtering
 
 ```bash
 # Include only Python files
-repo-to-prompt --include "*.py" --include-only
+cli-repo-to-prompt --include "*.py" --include-only
 
 # Exclude test files
-repo-to-prompt --exclude "*.test.ts" --exclude "*.spec.ts"
+cli-repo-to-prompt --exclude "*.test.ts" --exclude "*.spec.ts"
 
 # Include data files (off by default)
-repo-to-prompt --include-json --include-yaml --include-markdown
+cli-repo-to-prompt --include-json --include-yaml --include-markdown
 
 # Limit depth
-repo-to-prompt --max-depth 3
+cli-repo-to-prompt --max-depth 3
 ```
 
 ### Output Control
 
 ```bash
 # Preview files (no content)
-repo-to-prompt --preview
+cli-repo-to-prompt --preview
 
 # Dry run (stats only)
-repo-to-prompt --dry-run
+cli-repo-to-prompt --dry-run
 
 # JSON format
-repo-to-prompt --format json
+cli-repo-to-prompt --format json
 
 # Show stats with output
-repo-to-prompt --show-stats
+cli-repo-to-prompt --show-stats
 ```
 
 ## Options

@@ -21,7 +21,7 @@ export async function checkForUpdates(): Promise<UpdateInfo | null> {
       return {
         current,
         latest,
-        command: 'npm install -g repo-to-prompt',
+        command: 'npm install -g cli-repo-to-prompt',
       };
     }
   } catch {
@@ -34,7 +34,7 @@ export async function checkForUpdates(): Promise<UpdateInfo | null> {
 function fetchLatestVersion(): Promise<string | null> {
   return new Promise((resolve) => {
     const req = https.get(
-      'https://registry.npmjs.org/repo-to-prompt/latest',
+      'https://registry.npmjs.org/cli-repo-to-prompt/latest',
       { timeout: 3000 },
       (res) => {
         let data = '';

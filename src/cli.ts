@@ -26,7 +26,7 @@ const VERSION = '1.1.0';
 const program = new Command();
 
 program
-  .name('repo-to-prompt')
+  .name('cli-repo-to-prompt')
   .description('Gather project context for LLMs - intelligently scan repositories and format for AI consumption')
   .version(VERSION)
   .argument('[root_dir]', 'Root project directory or GitHub repo (owner/repo, URL)', '.')
@@ -139,8 +139,8 @@ async function run(rootDirArg: string, opts: Record<string, unknown>): Promise<v
     return;
   }
 
-  const invokedName = basename(process.argv[1] ?? '') || 'repo-to-prompt';
-  await ensureFirstRunSetup(invokedName === 'cli.js' ? 'repo-to-prompt' : invokedName);
+  const invokedName = basename(process.argv[1] ?? '') || 'cli-repo-to-prompt';
+  await ensureFirstRunSetup(invokedName === 'cli.js' ? 'cli-repo-to-prompt' : invokedName);
 
   // Check if input is a GitHub URL/reference
   let rootDir = rootDirArg;

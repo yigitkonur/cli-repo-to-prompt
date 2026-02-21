@@ -42,7 +42,7 @@ export async function fetchRepository(repo: GitHubRepo, keepGit = false): Promis
   const spinner = ora(`Cloning ${getDisplayName(repo)}...`).start();
 
   // Create temp directory
-  const tempDir = mkdtempSync(join(tmpdir(), `repo-to-prompt-${repo.name}-`));
+  const tempDir = mkdtempSync(join(tmpdir(), `cli-repo-to-prompt-${repo.name}-`));
   tempDirs.push(tempDir);
 
   const clonePath = join(tempDir, repo.name);
