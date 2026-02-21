@@ -1,8 +1,8 @@
-# cli-repotoprompt
+# cli-repo-to-prompt
 
 > Gather project context for LLMs — intelligently scan repositories and format for AI consumption.
 
-[![npm version](https://img.shields.io/npm/v/cli-repotoprompt.svg)](https://www.npmjs.com/package/cli-repotoprompt)
+[![npm version](https://img.shields.io/npm/v/cli-repo-to-prompt.svg)](https://www.npmjs.com/package/cli-repo-to-prompt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Why?
@@ -22,10 +22,10 @@ When working with AI coding assistants, you often need to share your project's c
 
 ```bash
 # Run instantly with npx (no install)
-npx cli-repotoprompt
+npx cli-repo-to-prompt
 
 # Or install globally
-pnpm add -g cli-repotoprompt
+pnpm add -g cli-repo-to-prompt
 ```
 
 After global install, use any of these aliases:
@@ -40,19 +40,19 @@ repocp .
 
 ```bash
 # Scan current directory → clipboard
-npx cli-repotoprompt
+npx cli-repo-to-prompt
 
 # Scan specific folder
-npx cli-repotoprompt ./src
+npx cli-repo-to-prompt ./src
 
 # Scan GitHub repo
-npx cli-repotoprompt owner/repo
+npx cli-repo-to-prompt owner/repo
 
 # Write to file
-npx cli-repotoprompt -o context.md
+npx cli-repo-to-prompt -o context.md
 
 # Preview what will be included
-npx cli-repotoprompt --preview
+npx cli-repo-to-prompt --preview
 ```
 
 ## Usage Examples
