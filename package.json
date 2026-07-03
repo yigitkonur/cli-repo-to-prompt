@@ -1,5 +1,5 @@
 {
-  "name": "cli-repo-to-prompt",
+  "name": "@yigitkonur/cli-repo-to-prompt",
   "version": "1.1.2",
   "description": "Gather project context for LLMs - intelligently scan repositories and format for AI consumption",
   "type": "module",
@@ -17,6 +17,9 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
